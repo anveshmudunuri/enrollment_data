@@ -47,9 +47,9 @@ LEAID VARCHAR(38,0)
 ```
 Created Snwoflake Table which holds FIPS Number, State Name. this is created using data from API documentation:
 ``` SQL
-create or replace TABLE ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.HOLIDAY_LIST (
-	HOLIDAY_DATE VARCHAR(16777216),
-	HOLIDAY_FLAG NUMBER(38,0)
+create or replace TABLE RAW_DATABASE.DBT_AMUDUNURI.EDU_STATE_NUMBER (
+	NO NUMBER(38,0),
+	STATE VARCHAR(16777216)
 );
 ```
 
@@ -69,14 +69,15 @@ Snowpipe will be polling to external stage for new files and will try to load as
 ### Query to retrive top 10 states highest number of children enrolled in Pre-K
 ``` SQL
 select top 10 ED.FIPS, SN.STATE,count(*) NUMBER_OF_ENROLLMENTS
-from ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.EDU_ENROLLMENT_DATA ED
-left join ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.EDU_STATE_NUMBER SN on (ED.FIPS=SN.NO)
+from RAW_DATABASE.DBT_AMUDUNURI.EDU_ENROLLMENT_DATA ED
+left join RAW_DATABASE.DBT_AMUDUNURI.EDU_STATE_NUMBER SN on (ED.FIPS=SN.NO)
 where YEAR=2021
 group by ED.FIPS,SN.STATE
 ORDER BY NUMBER_OF_ENROLLMENTS DESC;
 ```
 ## Attached Results below:
-<img width="1227" alt="image" src="https://github.com/user-attachments/assets/f121aa5f-15b3-476e-933f-7a6ae3008d67">
+<img width="1222" alt="image" src="https://github.com/user-attachments/assets/e751d6b4-dd8c-44c5-b7bf-923205163987">
+
 
 
 
