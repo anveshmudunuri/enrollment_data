@@ -76,7 +76,8 @@ group by ED.FIPS,SN.STATE
 ORDER BY NUMBER_OF_ENROLLMENTS DESC;
 ```
 ## Attached Results below:
-<img width="1222" alt="image" src="https://github.com/user-attachments/assets/e751d6b4-dd8c-44c5-b7bf-923205163987">
+<img width="1221" alt="image" src="https://github.com/user-attachments/assets/6e1ff446-dc3c-4f2b-8c32-cb897599e378">
+
 
 
 
