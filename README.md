@@ -56,3 +56,5 @@ pattern='enrollement_data_.*.csv'
 ON_ERROR='CONTINUE';
 ```
 Snowpipe will be polling to external stage for new files and will try to load as and when the new files arrive.
+
+### Query to retrive top 10 states highest number of children enrolled in Pre-K
