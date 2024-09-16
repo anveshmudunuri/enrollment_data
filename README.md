@@ -1,4 +1,4 @@
-
+[2021 Top 10 Enrolled States.csv](https://github.com/user-attachments/files/17008305/2021.Top.10.Enrolled.States.csv)
 ## Enrollment Data Load
 
 This repository contains a serverless data ingestion pipeline that leverages AWS Lambda to ingest data from API response to S3 and load it into a Snowflake data warehouse.
@@ -45,6 +45,14 @@ FIPS NUMBER(38,0),
 LEAID VARCHAR(38,0)
 );
 ```
+Created Snwoflake Table which holds FIPS Number, State Name. this is created using data from API documentation:
+``` SQL
+create or replace TABLE ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.HOLIDAY_LIST (
+	HOLIDAY_DATE VARCHAR(16777216),
+	HOLIDAY_FLAG NUMBER(38,0)
+);
+```
+
 ### Create Snowpipe to autoload data from S3 External Stage to Snowflake table
 ``` SQL
 create or replace pipe RAW_DATABASE.ANVESH_DEV.ENROLLMENT_PIPE
@@ -57,4 +65,18 @@ ON_ERROR='CONTINUE';
 ```
 Snowpipe will be polling to external stage for new files and will try to load as and when the new files arrive.
 
+
 ### Query to retrive top 10 states highest number of children enrolled in Pre-K
+``` SQL
+select top 10 ED.FIPS, SN.STATE,count(*) NUMBER_OF_ENROLLMENTS
+from ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.EDU_ENROLLMENT_DATA ED
+left join ASCEND_ANALYTICS_DEV.DBT_AMUDUNURI.EDU_STATE_NUMBER SN on (ED.FIPS=SN.NO)
+where YEAR=2021
+group by ED.FIPS,SN.STATE
+ORDER BY NUMBER_OF_ENROLLMENTS DESC;
+```
+## Attached Results below:
+<img width="1227" alt="image" src="https://github.com/user-attachments/assets/f121aa5f-15b3-476e-933f-7a6ae3008d67">
+
+
+
